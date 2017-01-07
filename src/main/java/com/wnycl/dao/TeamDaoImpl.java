@@ -20,7 +20,6 @@ public class TeamDaoImpl extends AbstractDao<Integer, Team> implements TeamDao {
 
 	@Override
 	public Team findByName(String name) {
-		
 		// TODO Auto-generated method stub
 		Criteria crit = createEntityCriteria();
 		crit.add(Restrictions.eq("name", name));
