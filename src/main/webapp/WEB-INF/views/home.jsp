@@ -4,24 +4,21 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<!-- Meta, title, CSS, favicons, etc. -->
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title>WNY Cricket League</title>
-
-<link rel="stylesheet" href="<c:url value='/css/bootstrap.min.css'/>">
-
-<!-- Optional theme -->
-<link rel="stylesheet"
-	href="<c:url value='/css/bootstrap-theme.min.css'/>">
-<script src="https://code.jquery.com/jquery-3.1.1.min.js"
-	integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-	crossorigin="anonymous"></script>
-<!-- Latest compiled and minified JavaScript -->
-<script src="<c:url value='/js/bootstrap.min.js'/>"></script>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<!-- Meta, title, CSS, favicons, etc. -->
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<title>WNY Cricket League</title>
+	
+	<link rel="stylesheet" href="<c:url value='/css/bootstrap.min.css'/>">
+	
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="<c:url value='/css/bootstrap-theme.min.css'/>">
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="<c:url value='/js/bootstrap.min.js'/>"></script>
 </head>
 <body>
 	<div class="container-fluid">
@@ -56,6 +53,7 @@
 	</div>
 
 	<div class="teamView" style="display:none;">
+		<h2 id="teamViewName"></h2>
 		<table class="table" >
 			<thead>
 				<tr>
@@ -73,44 +71,6 @@
 	</div>
 	<div class="footer"></div>
 
-	<script>
-		$(document).ready(function() {
-			$(".teamMenuItem").click(function() {
-				var json = {
-					tid : $(this).attr("id")
-				};
-				console.log(JSON.stringify(json));
-				$.ajax({
-					type : "POST",
-					headers : {
-						'Accept' : 'application/json',
-						'Content-Type' : 'application/json'
-					},
-					url : "/wnycl/teaminfo",
-					data : JSON.stringify(json),
-					dataType : "json",
-					timeout : 600000,
-					success : function(data) {
-						var players = data;
-						for(var i=0;i<players.length;i++){
-							var row = "<tr>"+
-										"<td>"+players[i].firstname+"</tg>"+
-										"<td>"+players[i].lastname+"</td>"+
-										"<td>"+players[i].dob+"</td>"+
-										"<td>"+players[i].email+"</td>"+
-										"<td>"+players[i].phone+"</td>"+
-									   "</tr>";
-							$("#teamViewBody").append(row);
-						}
-						$(".teamView").show();
-						
-					},
-					error : function(e) {
-						console.log(e);
-					}
-				});
-			});
-		});
-	</script>
+	<script src="<c:url value='/js/app.js'/>"></script>
 </body>
 </html>

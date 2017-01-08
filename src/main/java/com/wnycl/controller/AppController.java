@@ -32,8 +32,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.wnycl.ajax.AjaxBody;
-import com.wnycl.ajax.Search;
 import com.wnycl.model.Player;
 import com.wnycl.model.Team;
 import com.wnycl.model.User;
@@ -74,16 +72,17 @@ public class AppController {
 	}
 	
 	@RequestMapping(value="/teaminfo", method=RequestMethod.POST, consumes="application/json", headers = "content-type=application/x-www-form-urlencoded")
-	public @ResponseBody String getTeamInfo(@RequestBody Search json) throws JSONException{
-		Integer tid = Integer.parseInt(json.getTid());
-		List<Player> players = playerService.findPlayersByTeam(tid);
-		System.out.println(players.size());
-		JSONObject op = new JSONObject(players);
+	public @ResponseBody String getTeamInfo(@RequestBody String ab) throws JSONException{
 		
-		JSONObject outJson = new JSONObject();
-	    JSONArray jsonArray = new JSONArray();
-
-	    Iterator itr = players.iterator();
+		JSONObject json = new JSONObject(ab);
+		Integer tid = Integer.parseInt(json.getString("tid"));
+		Team team = teamService.findById(tid);
+		List<Player> players = playerService.findPlayersByTeam(tid);
+		JSONArray jsonArray = new JSONArray();
+	    JSONObject teamJson = new JSONObject();
+	    teamJson.put("teamname", team.getName());
+	    jsonArray.put(teamJson);
+		Iterator itr = players.iterator();
 	    while(itr.hasNext()){
 	    	Player p = (Player)itr.next();
 	    	JSONObject playerJson = new JSONObject();
