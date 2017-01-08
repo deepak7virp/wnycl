@@ -54,6 +54,23 @@
 		</div>
 
 	</div>
+
+	<div class="teamView" style="display:none;">
+		<table class="table" >
+			<thead>
+				<tr>
+					<th>First Name</th>
+					<th>Last Name</th>
+					<th>dob</th>
+					<th>email</th>
+					<th>phone</th>
+				</tr>
+			</thead>
+			<tbody id="teamViewBody">
+				
+			</tbody>
+		</table>
+	</div>
 	<div class="footer"></div>
 
 	<script>
@@ -74,7 +91,19 @@
 					dataType : "json",
 					timeout : 600000,
 					success : function(data) {
-						console.log(data);
+						var players = data;
+						for(var i=0;i<players.length;i++){
+							var row = "<tr>"+
+										"<td>"+players[i].firstname+"</tg>"+
+										"<td>"+players[i].lastname+"</td>"+
+										"<td>"+players[i].dob+"</td>"+
+										"<td>"+players[i].email+"</td>"+
+										"<td>"+players[i].phone+"</td>"+
+									   "</tr>";
+							$("#teamViewBody").append(row);
+						}
+						$(".teamView").show();
+						
 					},
 					error : function(e) {
 						console.log(e);
