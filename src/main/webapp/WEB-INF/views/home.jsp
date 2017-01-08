@@ -35,7 +35,7 @@
 			</a>
 				<ul class="dropdown-menu">
 				<c:forEach items="${teams}" var="team">
-					<li><a href="#">${team.name}</a></li>
+					<li><a class="teamMenuItem" id="${team.teamid }" href="#">${team.name}</a></li>
 				</c:forEach>
 					
 				</ul></li>
@@ -57,6 +57,23 @@
 </div>
 	<div class="footer"></div>
 
-
+<script>
+	$(document).ready(function(){
+		$(".teamMenuItem").click(function(){
+			var tid = $(this).attr("id");
+			$.ajax({
+				type : "POST",
+				url : "/teaminfo",
+				data : "11",
+				success : function(data){
+					alert(data);
+				},
+				error : function(e){
+					alert(e);
+				}
+			});
+		});
+	});
+</script>
 </body>
 </html>

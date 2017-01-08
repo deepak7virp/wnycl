@@ -1,5 +1,6 @@
 package com.wnycl.controller;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
@@ -20,8 +21,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.wnycl.model.User;
@@ -53,14 +56,21 @@ public class AppController {
 	//AuthenticationTrustResolver authenticationTrustResolver;
 	
 	
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value = {"/","/home"}, method = RequestMethod.GET)
 	public String login(ModelMap model) {
-		//List<User> users = userService.findAllUsers();
-		//model.addAttribute("users", users);
-		//model.addAttribute("loggedinuser", getPrincipal());
 		model.addAttribute("teams", teamService.findAllTeams());
 		return "home";
 	}
+	
+	
+	@RequestMapping(value = "/teaminfo", method = RequestMethod.POST)
+    
+    public @ResponseBody String getTeamInfo(@RequestBody String json) throws IOException {
+		
+		return "home";
+	}
+	
+	
 	
 	/**
 	 * This method will list all existing users.
