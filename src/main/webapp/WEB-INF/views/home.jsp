@@ -60,17 +60,22 @@
 <script>
 	$(document).ready(function(){
 		$(".teamMenuItem").click(function(){
-			var tid = $(this).attr("id");
+			var json = {
+					tid : $(this).attr("id")
+			};
+			console.log(JSON.stringify(json));
 			$.ajax({
-				type : "POST",
-				url : "/teaminfo",
-				data : "11",
-				success : function(data){
-					alert(data);
-				},
-				error : function(e){
-					alert(e);
-				}
+		             type: "POST",
+		             url: "/wnycl/teaminfo",
+		             data: JSON.stringify(json),
+		             dataType : "json",
+		             timeout: 600000,
+		             success: function (data) {
+		                 console.log(data);
+		             },
+		             error: function (e) {
+		                 console.log(e);
+		             }
 			});
 		});
 	});

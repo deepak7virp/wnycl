@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.security.authentication.AuthenticationTrustResolver;
@@ -27,7 +29,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.wnycl.ajax.AjaxBody;
+import com.wnycl.ajax.Search;
+import com.wnycl.model.Player;
+import com.wnycl.model.Team;
 import com.wnycl.model.User;
+import com.wnycl.service.PlayerService;
 import com.wnycl.service.TeamService;
 import com.wnycl.service.UserService;
 
@@ -44,7 +51,8 @@ public class AppController {
 	@Autowired
 	TeamService teamService;
 	
-	
+	@Autowired
+	PlayerService playerService;
 	
 	@Autowired
 	MessageSource messageSource;
@@ -62,12 +70,15 @@ public class AppController {
 		return "home";
 	}
 	
-	
-	@RequestMapping(value = "/teaminfo", method = RequestMethod.POST)
-    
-    public @ResponseBody String getTeamInfo(@RequestBody String json) throws IOException {
-		
-		return "home";
+	@RequestMapping(value="/teaminfo", method=RequestMethod.POST)
+	public @ResponseBody String getTeamInfo(@RequestBody String json) throws JSONException{
+		System.out.println(json);
+		JSONObject ip = new JSONObject(json);
+		Integer tid = Integer.parseInt(ip.getString("tid"));
+		Team team = teamService.findById(tid);
+		List<Player> players = playerService.findPlayersByTeam(tid);
+		JSONObject op = new JSONObject(players);
+		return op.toString();
 	}
 	
 	
