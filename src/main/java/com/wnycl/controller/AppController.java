@@ -1,6 +1,7 @@
 package com.wnycl.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -8,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,15 +72,26 @@ public class AppController {
 		return "home";
 	}
 	
-	@RequestMapping(value="/teaminfo", method=RequestMethod.POST)
-	public @ResponseBody String getTeamInfo(@RequestBody String json) throws JSONException{
-		System.out.println(json);
-		JSONObject ip = new JSONObject(json);
-		Integer tid = Integer.parseInt(ip.getString("tid"));
-		Team team = teamService.findById(tid);
+	@RequestMapping(value="/teaminfo", method=RequestMethod.POST, consumes="application/json", headers = "content-type=application/x-www-form-urlencoded")
+	public @ResponseBody String getTeamInfo(@RequestBody Search json) throws JSONException{
+		Integer tid = Integer.parseInt(json.getTid());
 		List<Player> players = playerService.findPlayersByTeam(tid);
-		JSONObject op = new JSONObject(players);
-		return op.toString();
+		System.out.println(players.size());
+//		JSONObject op = new JSONObject(players);
+//		
+//		JSONObject outJson = new JSONObject();
+//	    JSONArray jsonArray = new JSONArray();
+//
+//	    for(Player p : players.keySet()) {
+//	        JSONObject playerJson = new JSONObject();
+//	        playerJson.put("id", "1");
+//	        playerJson.put("name", "name1");
+//	       jsonArray.add(formDetailsJson);
+//	    }
+	    
+		JSONObject j = new JSONObject();
+		j.append("temp", "temp");
+		return j.toString();
 	}
 	
 	

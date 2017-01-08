@@ -66,6 +66,10 @@
 			console.log(JSON.stringify(json));
 			$.ajax({
 		             type: "POST",
+		             headers: { 
+		                 'Accept': 'application/json',
+		                 'Content-Type': 'application/json' 
+		             },
 		             url: "/wnycl/teaminfo",
 		             data: JSON.stringify(json),
 		             dataType : "json",
