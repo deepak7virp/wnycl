@@ -24,65 +24,64 @@
 <script src="<c:url value='/js/bootstrap.min.js'/>"></script>
 </head>
 <body>
-<div class="container-fluid">
-<div class="collapse navbar-collapse">
-		<ul class="nav nav-tabs navbar-left">
-			<li role="presentation" class="active"><a href="#">Home</a></li>
-			<li role="presentation" class="dropdown"><a
-				class="dropdown-toggle" data-toggle="dropdown" role="button"
-				aria-haspopup="true" aria-expanded="false"> Teams <span
-					class="caret"></span>
-			</a>
-				<ul class="dropdown-menu">
-				<c:forEach items="${teams}" var="team">
-					<li><a class="teamMenuItem" id="${team.teamid }" href="#">${team.name}</a></li>
-				</c:forEach>
-					
-				</ul></li>
-			<li role="presentation"><a href="#">Tournament</a></li>
-			<li role="presentation"><a href="#">Gallery</a></li>
-			<li role="presentation"><a href="#">News</a></li>
-			<li role="presentation"><a href="#">About Us</a></li>
+	<div class="container-fluid">
+		<div class="collapse navbar-collapse">
+			<ul class="nav nav-tabs navbar-left">
+				<li role="presentation" class="active"><a href="#">Home</a></li>
+				<li role="presentation" class="dropdown"><a
+					class="dropdown-toggle" data-toggle="dropdown" role="button"
+					aria-haspopup="true" aria-expanded="false"> Teams <span
+						class="caret"></span>
+				</a>
+					<ul class="dropdown-menu">
+						<c:forEach items="${teams}" var="team">
+							<li><a class="teamMenuItem" id="${team.teamid }" href="#">${team.name}</a></li>
+						</c:forEach>
 
-		</ul>
-		
-		<ul class="nav navbar-nav navbar-right">
-			
-			<li class="dropdown"><a href="#" class="dropdown-toggle"
-				data-toggle="dropdown"><b>Login</b></a>
-				</li>
-		</ul>
+					</ul></li>
+				<li role="presentation"><a href="#">Tournament</a></li>
+				<li role="presentation"><a href="#">Gallery</a></li>
+				<li role="presentation"><a href="#">News</a></li>
+				<li role="presentation"><a href="#">About Us</a></li>
+
+			</ul>
+
+			<ul class="nav navbar-nav navbar-right">
+
+				<li class="dropdown"><a href="#" class="dropdown-toggle"
+					data-toggle="dropdown"><b>Login</b></a></li>
+			</ul>
+		</div>
+
 	</div>
-	
-</div>
 	<div class="footer"></div>
 
-<script>
-	$(document).ready(function(){
-		$(".teamMenuItem").click(function(){
-			var json = {
+	<script>
+		$(document).ready(function() {
+			$(".teamMenuItem").click(function() {
+				var json = {
 					tid : $(this).attr("id")
-			};
-			console.log(JSON.stringify(json));
-			$.ajax({
-		             type: "POST",
-		             headers: { 
-		                 'Accept': 'application/json',
-		                 'Content-Type': 'application/json' 
-		             },
-		             url: "/wnycl/teaminfo",
-		             data: JSON.stringify(json),
-		             dataType : "json",
-		             timeout: 600000,
-		             success: function (data) {
-		                 console.log(data);
-		             },
-		             error: function (e) {
-		                 console.log(e);
-		             }
+				};
+				console.log(JSON.stringify(json));
+				$.ajax({
+					type : "POST",
+					headers : {
+						'Accept' : 'application/json',
+						'Content-Type' : 'application/json'
+					},
+					url : "/wnycl/teaminfo",
+					data : JSON.stringify(json),
+					dataType : "json",
+					timeout : 600000,
+					success : function(data) {
+						console.log(data);
+					},
+					error : function(e) {
+						console.log(e);
+					}
+				});
 			});
 		});
-	});
-</script>
+	</script>
 </body>
 </html>

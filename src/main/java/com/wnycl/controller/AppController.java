@@ -2,6 +2,7 @@ package com.wnycl.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
@@ -77,21 +78,28 @@ public class AppController {
 		Integer tid = Integer.parseInt(json.getTid());
 		List<Player> players = playerService.findPlayersByTeam(tid);
 		System.out.println(players.size());
-//		JSONObject op = new JSONObject(players);
-//		
-//		JSONObject outJson = new JSONObject();
-//	    JSONArray jsonArray = new JSONArray();
-//
-//	    for(Player p : players.keySet()) {
-//	        JSONObject playerJson = new JSONObject();
-//	        playerJson.put("id", "1");
-//	        playerJson.put("name", "name1");
-//	       jsonArray.add(formDetailsJson);
-//	    }
+		JSONObject op = new JSONObject(players);
+		
+		JSONObject outJson = new JSONObject();
+	    JSONArray jsonArray = new JSONArray();
+
+	    Iterator itr = players.iterator();
+	    while(itr.hasNext()){
+	    	Player p = (Player)itr.next();
+	    	JSONObject playerJson = new JSONObject();
+	    	playerJson.put("playerdid", p.getPlayerid());
+	    	playerJson.put("teamid", p.getTeamid());
+	    	playerJson.put("firstname", p.getFirstname());
+	    	playerJson.put("lastname", p.getLastname());
+	    	playerJson.put("dob", p.getDob());
+	    	playerJson.put("email", p.getEmail());
+	    	playerJson.put("phone", p.getPhone());
+	    	jsonArray.put(playerJson);
+	    }
 	    
-		JSONObject j = new JSONObject();
-		j.append("temp", "temp");
-		return j.toString();
+//		JSONObject j = new JSONObject();
+//		j.append("temp", "temp");
+		return jsonArray.toString();
 	}
 	
 	
