@@ -5,17 +5,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-@Table(name="team")
-public class Team {
-
+@Table(name="venue")
+public class Venue {
+	
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	
@@ -24,13 +21,17 @@ public class Team {
 	private String name;
 	
 	@NotEmpty
-	@Column(name="city", nullable=false)
-	private String city;
+	@Column(name="location", nullable=false)
+	private String location;
 	
-	@OneToOne
-    @JoinColumn(name = "id")
-	private Player captain;
-
+	@NotEmpty
+	@Column(name="incharge", nullable=false)
+	private String incharge;
+	
+	@NotEmpty
+	@Column(name="phone", nullable=false)
+	private String phone;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -47,21 +48,30 @@ public class Team {
 		this.name = name;
 	}
 
-	public String getCity() {
-		return city;
+	public String getLocation() {
+		return location;
 	}
 
-	public void setCity(String city) {
-		this.city = city;
+	public void setLocation(String location) {
+		this.location = location;
 	}
 
-	public Player getCaptain() {
-		return captain;
+	public String getIncharge() {
+		return incharge;
 	}
 
-	public void setCaptain(Player captain) {
-		this.captain = captain;
+	public void setIncharge(String incharge) {
+		this.incharge = incharge;
 	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
 	
-	
+
 }

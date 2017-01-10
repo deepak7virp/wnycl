@@ -1,10 +1,14 @@
 package com.wnycl.model;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -14,7 +18,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class Player {
 
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer playerid;
+	private Integer id;
 	
 	@NotEmpty
 	@Column(name="firstname", nullable=false)
@@ -25,12 +29,12 @@ public class Player {
 	private String lastname;
 	
 	@NotEmpty
-	@Column(name="dob", nullable=false)
-	private String dob;
+	@Column(name="dob", columnDefinition="DATE", nullable=false)
+	private Date dob;
 	
-	@NotEmpty
-	@Column(name="teamid", nullable=false)
-	private Integer teamid;
+	@ManyToOne
+    @JoinColumn(name = "id")
+	private Team team;
 	
 	@NotEmpty
 	@Column(name="email", nullable=false)
@@ -40,12 +44,12 @@ public class Player {
 	@Column(name="phone", nullable=false)
 	private String phone;
 	
-	public Integer getPlayerid() {
-		return playerid;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setPlayerid(Integer playerid) {
-		this.playerid = playerid;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getFirstname() {
@@ -64,20 +68,20 @@ public class Player {
 		this.lastname = lastname;
 	}
 
-	public String getDob() {
+	public Date getDob() {
 		return dob;
 	}
 
-	public void setDob(String dob) {
+	public void setDob(Date dob) {
 		this.dob = dob;
 	}
 
-	public Integer getTeamid() {
-		return teamid;
+	public Team getTeam() {
+		return team;
 	}
 
-	public void setTeamid(Integer teamid) {
-		this.teamid = teamid;
+	public void setTeam(Team team) {
+		this.team = team;
 	}
 
 	public String getEmail() {
@@ -95,4 +99,5 @@ public class Player {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
+	
 }

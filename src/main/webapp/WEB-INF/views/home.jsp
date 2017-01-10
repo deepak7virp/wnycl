@@ -69,6 +69,18 @@
 			</tbody>
 		</table>
 	</div>
+	
+	<div class="addTeamFormSection" style="display:none;"></div>
+	
+	<div class="addPlayerFormSection" style="display:none;"></div>
+	
+	<div class="addTourFormSection" style="display:none;"></div>
+	
+	<div class="addVenueFormSection" style="display:none;"></div>
+	
+	<div class="scheduleTourFormSection" style="display:none;"></div>
+	
+	
 	<div class="footer"></div>
 
 	<script src="<c:url value='/js/app.js'/>"></script>

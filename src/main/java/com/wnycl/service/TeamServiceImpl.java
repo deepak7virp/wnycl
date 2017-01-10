@@ -37,10 +37,10 @@ public class TeamServiceImpl implements TeamService{
 	@Override
 	public void updateTeam(Team team) {
 		// TODO Auto-generated method stub
-		Team entity = dao.findById(team.getTeamid());
+		Team entity = dao.findById(team.getId());
 		entity.setName(team.getName());
 		entity.setCity(team.getCity());
-		entity.setCaptainid(team.getCaptainid());
+		//entity.setCaptainid(team.getCaptainId());
 	}
 
 	@Override
