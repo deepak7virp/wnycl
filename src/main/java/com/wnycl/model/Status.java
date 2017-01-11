@@ -14,20 +14,21 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class Status {
 
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer id;
+	private Integer statusid;
 	
+	public Integer getStatusid() {
+		return statusid;
+	}
+
+	public void setStatusid(Integer statusid) {
+		this.statusid = statusid;
+	}
+
 	@NotEmpty
 	@Column(name="desc", nullable=false)
 	private String desc;
 
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
+	
 	public String getDesc() {
 		return desc;
 	}

@@ -18,18 +18,18 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class Match {
 	
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer id;
+	private Integer matchid;
 	
 	@ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name="tourid_fk")
 	private Tournament tournament;
 	
 	@ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name="hometeam_fk")
 	private Team homeTeam;
 	
 	@ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name="awayteam_fk")
 	private Team awayTeam;
 	
 	@NotEmpty
@@ -45,15 +45,17 @@ public class Match {
 	private Date time;
 	
 	@ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name="statusid_fk")
 	private Status status;
 
-	public Integer getId() {
-		return id;
+	
+
+	public Integer getMatchid() {
+		return matchid;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setMatchid(Integer matchid) {
+		this.matchid = matchid;
 	}
 
 	public Tournament getTournament() {

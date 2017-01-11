@@ -1,5 +1,29 @@
 $(document).ready(
 		function() {
+			$("#addTeamSubmit").click(function(){
+				var json = {
+						name : $("#addTeamName").val(),
+						city : $("#addTeamCity").val()
+				}
+				$.ajax({
+					type : "POST",
+					headers : {
+						'Accept' : 'application/json',
+						'Content-Type' : 'application/json'
+					},
+					url : "/wnycl/addNewTeam",
+					data : JSON.stringify(json),
+					dataType : "json",
+					timeout : 600000,
+					success : function(data) {
+						console.log(data);
+					},
+					error : function(e) {
+						console.log(e);
+					}
+				});
+				return false;
+			});
 			$(".teamMenuItem").click(
 					function() {
 						var json = {

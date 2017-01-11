@@ -18,14 +18,14 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class Tournament {
 	
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer id;
+	private Integer tourid;
 	
 	@NotEmpty
 	@Column(name="name", nullable=false)
 	private String name;
 	
 	@ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "venueid_fk")
 	private Venue venue;
 	
 	@NotEmpty
@@ -44,12 +44,14 @@ public class Tournament {
 	@Column(name="playerscount", nullable=false)
 	private Integer playersCount;
 
-	public Integer getId() {
-		return id;
+	
+
+	public Integer getTourid() {
+		return tourid;
 	}
 
-	public void setId(Integer userId) {
-		this.id = userId;
+	public void setTourid(Integer tourid) {
+		this.tourid = tourid;
 	}
 
 	public String getName() {

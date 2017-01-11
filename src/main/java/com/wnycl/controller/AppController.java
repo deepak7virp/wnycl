@@ -3,6 +3,8 @@ package com.wnycl.controller;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -45,6 +47,27 @@ public class AppController {
 		return "home";
 	}
 	
+	@RequestMapping(value = {"/listTeams"}, method = RequestMethod.GET)
+	public String listTeams(ModelMap model) {
+		model.addAttribute("teams", teamService.findAllTeams());
+		model.addAttribute("displayTeams",true);
+		return "home";
+	}
+	
+	@RequestMapping(value="/addNewTeam", method=RequestMethod.POST, consumes="application/json", headers = "content-type=application/x-www-form-urlencoded")
+	public @ResponseBody String addNewTeam(@RequestBody String ab) throws JSONException{
+		JSONObject json = new JSONObject(ab);
+		String name = json.getString("name");
+		String city = json.getString("city");
+		Team team = new Team();
+		team.setName(name);
+		team.setCity(city);
+		teamService.saveTeam(team);
+		JSONObject ret = new JSONObject();
+		ret.append("success", true);
+		return ret.toString();
+	}
+	
 	@RequestMapping(value="/teaminfo", method=RequestMethod.POST, consumes="application/json", headers = "content-type=application/x-www-form-urlencoded")
 	public @ResponseBody String getTeamInfo(@RequestBody String ab) throws JSONException{
 		JSONObject json = new JSONObject(ab);
@@ -56,18 +79,18 @@ public class AppController {
 	    teamJson.put("teamname", team.getName());
 	    jsonArray.put(teamJson);
 		Iterator<Player> itr = players.iterator();
-	    while(itr.hasNext()){
-	    	Player p = (Player)itr.next();
-	    	JSONObject playerJson = new JSONObject();
-	    	playerJson.put("playerdid", p.getId());
-	    	playerJson.put("teamid", p.getTeam().getId());
-	    	playerJson.put("firstname", p.getFirstname());
-	    	playerJson.put("lastname", p.getLastname());
-	    	playerJson.put("dob", p.getDob());
-	    	playerJson.put("email", p.getEmail());
-	    	playerJson.put("phone", p.getPhone());
-	    	jsonArray.put(playerJson);
-	    }
+//	    while(itr.hasNext()){
+//	    	Player p = (Player)itr.next();
+//	    	JSONObject playerJson = new JSONObject();
+//	    	playerJson.put("playerdid", p.getId());
+//	    	playerJson.put("teamid", p.getTeam().getId());
+//	    	playerJson.put("firstname", p.getFirstname());
+//	    	playerJson.put("lastname", p.getLastname());
+//	    	playerJson.put("dob", p.getDob());
+//	    	playerJson.put("email", p.getEmail());
+//	    	playerJson.put("phone", p.getPhone());
+//	    	jsonArray.put(playerJson);
+//	    }
 	    return jsonArray.toString();
 	}
 

@@ -14,7 +14,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class Venue {
 	
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer id;
+	private Integer venueid;
 	
 	@NotEmpty
 	@Column(name="name", nullable=false)
@@ -32,13 +32,7 @@ public class Venue {
 	@Column(name="phone", nullable=false)
 	private String phone;
 	
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
+	
 
 	public String getName() {
 		return name;

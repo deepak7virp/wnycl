@@ -16,14 +16,14 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class Scorecard {
 
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer id;
+	private Integer scoreid;
 	
 	@ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name="matchid_fk")
 	private Match match;
 	
 	@ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name="playerid_fk")
 	private Player player;
 	
 	@NotEmpty
@@ -67,15 +67,17 @@ public class Scorecard {
 	private Integer extrasGiven;
 	
 	@ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "wicketid_fk")
 	private WicketType wicket;
 
-	public Integer getId() {
-		return id;
+	
+
+	public Integer getScoreid() {
+		return scoreid;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setScoreid(Integer scoreid) {
+		this.scoreid = scoreid;
 	}
 
 	public Match getMatch() {

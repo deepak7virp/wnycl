@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -18,7 +20,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class Player {
 
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer id;
+	private Integer playerid;
 	
 	@NotEmpty
 	@Column(name="firstname", nullable=false)
@@ -32,8 +34,16 @@ public class Player {
 	@Column(name="dob", columnDefinition="DATE", nullable=false)
 	private Date dob;
 	
-	@ManyToOne
-    @JoinColumn(name = "id")
+	public Integer getPlayerid() {
+		return playerid;
+	}
+
+	public void setPlayerid(Integer playerid) {
+		this.playerid = playerid;
+	}
+
+	@OneToOne
+	@PrimaryKeyJoinColumn
 	private Team team;
 	
 	@NotEmpty
@@ -44,13 +54,7 @@ public class Player {
 	@Column(name="phone", nullable=false)
 	private String phone;
 	
-	public Integer getId() {
-		return id;
-	}
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
 
 	public String getFirstname() {
 		return firstname;
