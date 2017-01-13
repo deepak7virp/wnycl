@@ -17,7 +17,7 @@ public class TeamServiceImpl implements TeamService{
 	private TeamDao dao;
 	
 	@Override
-	public Team findById(int id) {
+	public Team findById(long id) {
 		// TODO Auto-generated method stub
 		return dao.findById(id);
 	}
@@ -44,7 +44,7 @@ public class TeamServiceImpl implements TeamService{
 	}
 
 	@Override
-	public void deleteTeamById(Integer id) {
+	public void deleteTeamById(long id) {
 		// TODO Auto-generated method stub
 		dao.deleteById(id);
 	}
@@ -56,10 +56,17 @@ public class TeamServiceImpl implements TeamService{
 	}
 
 	@Override
-	public boolean isTeamUnique(Integer id, String name) {
+	public boolean isTeamUnique(long id, String name) {
 		// TODO Auto-generated method stub
 		Team team = findById(id);
-		return ( team == null || ((id != null) && (team.getName() == name)));
+		return ( team == null || ( (team.getName() == name)));
+	}
+
+	@Override
+	public boolean isTeamExist(Team team) {
+		// TODO Auto-generated method stub
+		Team entity = findById(team.getTeamid());
+		return entity!= null;
 	}
 
 }

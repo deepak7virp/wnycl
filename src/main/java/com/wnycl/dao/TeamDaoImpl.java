@@ -10,10 +10,10 @@ import org.springframework.stereotype.Repository;
 import com.wnycl.model.Team;
 
 @Repository("teamDao")
-public class TeamDaoImpl extends AbstractDao<Integer, Team> implements TeamDao {
+public class TeamDaoImpl extends AbstractDao<Long, Team> implements TeamDao {
 
 	@Override
-	public Team findById(int id) {
+	public Team findById(long id) {
 		// TODO Auto-generated method stub
 		return getByKey(id);
 	}
@@ -34,7 +34,7 @@ public class TeamDaoImpl extends AbstractDao<Integer, Team> implements TeamDao {
 	}
 
 	@Override
-	public void deleteById(int id) {
+	public void deleteById(long id) {
 		// TODO Auto-generated method stub
 		Criteria crit = createEntityCriteria();
 		crit.add(Restrictions.eq("id", id));
