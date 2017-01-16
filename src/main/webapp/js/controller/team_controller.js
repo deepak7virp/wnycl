@@ -1,40 +1,54 @@
 'use strict';
- 
+
 angular.module('myApp').controller('TeamController', ['$scope', 'TeamService', function($scope, TeamService) {
     var self = this;
-    self.team={id:null,name:'',city:'',captain:''};
+    self.team={
+    		teamid:null,
+    		name:'',
+    		city:'',
+    		captain: {
+    			playerid : '',
+    			firstname : '',
+    			lastname : '',
+    			dob : '',
+    			email : '',
+    			phone : '',
+    			active : ''
+    		}
+    };
+    
     self.teams=[];
- 
+
     self.submit = submit;
     self.edit = edit;
     self.remove = remove;
     self.reset = reset;
- 
- 
-    getAllTeams();
- 
-    function getAllTeams(){
-        TeamService.getAllTeams()
+
+
+    fetchAllTeams();
+
+    function fetchAllTeams(){
+        TeamService.fetchAllTeams()
             .then(
             function(d) {
                 self.teams = d;
             },
             function(errResponse){
-                console.error('Error while getting Teams');
+                console.error('Error while fetching Teams');
             }
         );
     }
- 
-    function createTeam(team){
-        TeamService.createTeam(team)
+
+    function createTeams(team){
+        TeamService.createTeams(team)
             .then(
-            getAllTeams,
+            fetchAllTeams,
             function(errResponse){
                 console.error('Error while creating Team');
             }
         );
     }
- 
+
     function updateTeam(team, id){
         TeamService.updateTeam(team, id)
             .then(
@@ -44,49 +58,50 @@ angular.module('myApp').controller('TeamController', ['$scope', 'TeamService', f
             }
         );
     }
- 
+
     function deleteTeam(id){
         TeamService.deleteTeam(id)
             .then(
-            getAllTeams,
+            fetchAllTeams,
             function(errResponse){
-                console.error('Error while deleting Team');
+                console.error('Error while deleting User');
             }
         );
     }
- 
+
     function submit() {
-        if(self.team.id===null){
+        if(self.team.teamid===null){
             console.log('Saving New Team', self.team);
-            createTeam(self.team);
+            createUser(self.team);
         }else{
-            updateTeam(self.team, self.team.id);
-            console.log('Team updated with id ', self.team.id);
+            updateUser(self.team, self.team.teamid);
+            console.log('Team updated with id ', self.team.teamid);
         }
         reset();
     }
- 
+
     function edit(id){
         console.log('id to be edited', id);
         for(var i = 0; i < self.teams.length; i++){
-            if(self.teams[i].id === id) {
+            if(self.teams[i].teamid === id) {
                 self.team = angular.copy(self.teams[i]);
                 break;
             }
         }
     }
- 
+
     function remove(id){
         console.log('id to be deleted', id);
-        if(self.team.id === id) {//clean form if the user to be deleted is shown there.
+        if(self.team.teamid === id) {//clean form if the user to be deleted is shown there.
             reset();
         }
         deleteTeam(id);
     }
- 
- 
+
+
     function reset(){
-        self.team={id:null,name:'',city:'',captain:''};
+        self.team={teamid:null,name:'',city:'',captain:''};
         $scope.myForm.$setPristine(); //reset Form
     }
+
 }]);

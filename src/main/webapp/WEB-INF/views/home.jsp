@@ -19,9 +19,9 @@
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="<c:url value='/js/bootstrap.min.js'/>"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
 </head>
-<body ng-app='myApp'>
+<body ng-app="myApp">
+
 	<div class="container-fluid">
 		<div class="collapse navbar-collapse">
 			<ul class="nav nav-tabs navbar-left">
@@ -73,7 +73,7 @@
 	</c:if>
 		
 	<c:if test="${displayTeams}">
-		<div class="addTeamFormSection" ng-controller='TeamController as teamCtrl'>
+		<div class="addTeamFormSection" ng-controller="TeamController as teamCtrl">
 			<h4></h4>
 	        <div class="table-responsive">
 	        	<table id="mytable" class="table table-bordred table-striped">
@@ -83,25 +83,11 @@
 	                    <th>Captain</th>
 	                </thead>
 	    			<tbody>
-	    				<tr class="teamDisplayRow" data-ng-repeat="team in teamCtrl.teams" id="team.name-team.id">
-	    					<td>{{team.name}}</td>
-	    					<td>{{team.city}}</td>
-	    					<td>{{team.captain}}</td>
-	    				</tr>
-<%-- 	    				<c:forEach var="team" items="${teams}" varStatus="t"> --%>
-<%-- 							<tr class="teamdisplayRow" id="${team.name}-${team.teamid}"> --%>
-<%-- 		    					<td>${team.name}</td> --%>
-<%-- 		    					<td>${team.city}</td> --%>
-<%-- 		    					<c:choose> --%>
-<%-- 								    <c:when test="${team.captain != null}"> --%>
-<%-- 								    	<td>${team.captain.firstname} ${team.captain.lastname}</td>     --%>
-<%-- 								    </c:when>     --%>
-<%-- 								    <c:otherwise> --%>
-<!-- 								        <td>Not Assigned</td> -->
-<%-- 								    </c:otherwise> --%>
-<%-- 								</c:choose> --%>
-<!-- 		    				</tr>	 -->
-<%-- 						</c:forEach> --%>
+	    				<tr class="teamdisplayRow" ng-repeat="team in teamCtrl.teams" id="{{team.name}}-{{team.teamid}}">
+		    					<td>{{team.name}}</td>
+		    					<td>{{team.city}}</td>
+		    					<td>{{team.captain.firstname}}</td>
+		    			</tr>
 	    			</tbody>
 	    		</table>
 	        	<div class="clearfix"></div>
@@ -154,8 +140,10 @@
 	
 	<div class="footer"></div>
 
-	<script src="<c:url value='/js/app.js'/>"></script>
-	<script src="<c:url value='/js/service/team_service.js' />"></script>
-    <script src="<c:url value='/js/controller/team_controller.js' />"></script>
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.js"></script>
+    <script src="<c:url value='/js/app.js'/>"></script>  
+      <script src="<c:url value='/js/service/team_service.js' />"></script>
+      <script src="<c:url value='/js/controller/team_controller.js' />"></script>
 </body>
 </html>

@@ -15,6 +15,8 @@ import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name="player")
 public class Player {
@@ -44,6 +46,7 @@ public class Player {
 
 	@OneToOne
 	@PrimaryKeyJoinColumn
+	@JsonIgnoreProperties(value={"captain"})
 	private Team team;
 	
 	@NotEmpty
@@ -54,7 +57,18 @@ public class Player {
 	@Column(name="phone", nullable=false)
 	private String phone;
 	
+	@NotEmpty
+	@Column(name="active", nullable=false)
+	private Integer active;
 
+
+	public Integer getActive() {
+		return active;
+	}
+
+	public void setActive(Integer active) {
+		this.active = active;
+	}
 
 	public String getFirstname() {
 		return firstname;
