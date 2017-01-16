@@ -13,6 +13,8 @@ import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name="team")
 public class Team {
@@ -30,6 +32,7 @@ public class Team {
 	
 	@OneToOne
 	@PrimaryKeyJoinColumn
+	@JsonIgnoreProperties(value={"team"})
 	private Player captain;
 
 	public Integer getTeamid() {
