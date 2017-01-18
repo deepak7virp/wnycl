@@ -56,5 +56,10 @@ public class NavController {
 	}
 	
 	
+	@RequestMapping(value = {"/TeamsList"}, method = RequestMethod.GET)
+	public String teamsList(ModelMap model) {
+		return "teamList";
+	}
+	
 
 }

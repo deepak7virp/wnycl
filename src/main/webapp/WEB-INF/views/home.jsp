@@ -22,20 +22,19 @@
 </head>
 <body ng-app="myApp">
 
-	<div class="container-fluid">
+	<div class="container-fluid" ng-controller="TeamController as teamCtrl">
 		<div class="collapse navbar-collapse">
 			<ul class="nav nav-tabs navbar-left">
-				<li role="presentation" class="active"><a href="#">Home</a></li>
+				<li role="presentation" class="active"><a href="#/home">Home</a></li>
 				<li role="presentation" class="dropdown"><a
 					class="dropdown-toggle" data-toggle="dropdown" role="button"
 					aria-haspopup="true" aria-expanded="false"> Teams <span
 						class="caret"></span>
 				</a>
 					<ul class="dropdown-menu">
-						<c:forEach items="${teams}" var="team">
-							<li><a class="teamMenuItem" id="${team.teamid }" href="#">${team.name}</a></li>
-						</c:forEach>
-						<li><a class="teamMenuItem" id="addModifyTeam" href="<c:url value='/listTeams'/>">Add/Modify Team</a></li>
+					
+						<li ng-repeat="team in teamCtrl.teams"><a class="teamMenuItem" id="{{team.teamid}}" href="#/teamInfo/{{team.teamid}}">{{team.name}}</a></li>
+						<li><a class="teamMenuItem" id="addModifyTeam" href="#/listTeams">Add/Modify Team</a></li>
 					</ul></li>
 				<li role="presentation"><a href="#">Tournament</a></li>
 				<li role="presentation"><a href="#">Gallery</a></li>
@@ -51,97 +50,53 @@
 			</ul>
 		</div>
 	</div>
+	<div ng-view></div>
 	
-	<c:if test="${displayTeamInfo}">
-		<div class="teamView" style="display:none;">
-			<h2 id="teamViewName"></h2>
-			<table class="table" >
-				<thead>
-					<tr>
-						<th>First Name</th>
-						<th>Last Name</th>
-						<th>dob</th>
-						<th>email</th>
-						<th>phone</th>
-					</tr>
-				</thead>
-				<tbody id="teamViewBody">
-					
-				</tbody>
-			</table>
-		</div>
-	</c:if>
-		
-	<c:if test="${displayTeams}">
-		<div class="addTeamFormSection" ng-controller="TeamController as teamCtrl">
-			<h4></h4>
-	        <div class="table-responsive">
-	        	<table id="mytable" class="table table-bordred table-striped">
-					<thead>
-	                	<th>Name</th>
-	                    <th>City</th>
-	                    <th>Captain</th>
-	                </thead>
-	    			<tbody>
-	    				<tr class="teamdisplayRow" ng-repeat="team in teamCtrl.teams" id="{{team.name}}-{{team.teamid}}">
-		    					<td>{{team.name}}</td>
-		    					<td>{{team.city}}</td>
-		    					<td>{{team.captain.firstname}}</td>
-		    			</tr>
-	    			</tbody>
-	    		</table>
-	        	<div class="clearfix"></div>
-	        	<button type="button" class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#addTeammodal">
-	        		<b>Add Team</b>
-	        	</button>
-	        </div>
-		</div>
-	</c:if>
-	
-	<div class="modal fade" id="addTeammodal" tabindex="-1" role="dialog" aria-labelledby="add-modal-label">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-		    	<form method="POST" class="form-horizontal" id="add-form">
-			    	<div class="modal-header">
-			        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-			        	<h4 class="modal-title" id="add-modal-label">Add New Team</h4>
-			      	</div>
-			      	<div class="modal-body">
-			        	<div class="form-group">
-					    	<label for="addTeamName" class="col-sm-2 control-label">Name</label>
-					    	<div class="col-sm-10">
-					      		<input type="text" class="form-control" id="addTeamName" name="name" placeholder="name" required="">
-					    	</div>
-					  	</div>
-					  	<div class="form-group">
-					    	<label for="addTeamCity" class="col-sm-2 control-label">City</label>
-					    	<div class="col-sm-10">
-					      		<input type="text" class="form-control" id="addTeamCity" name="city" placeholder="City" required="">
-					    	</div>
-					  	</div>
-				  	</div>
-			      	<div class="modal-footer">
-			        	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			        	<button type="submit" id="addTeamSubmit" class="btn btn-primary">Save</button>
-			      	</div>
-		      	</form>
-		    </div>
-		</div>
-	</div>
-	
-	<div class="addPlayerFormSection" style="display:none;"></div>
-	
-	<div class="addTourFormSection" style="display:none;"></div>
-	
-	<div class="addVenueFormSection" style="display:none;"></div>
-	
-	<div class="scheduleTourFormSection" style="display:none;"></div>
-	
-	
+
+
+
+<!-- 	<div class="modal fade" id="addTeammodal" tabindex="-1" role="dialog" -->
+<!-- 		aria-labelledby="add-modal-label"> -->
+<!-- 		<div class="modal-dialog" role="document"> -->
+<!-- 			<div class="modal-content"> -->
+<!-- 				<form method="POST" class="form-horizontal" id="add-form"> -->
+<!-- 					<div class="modal-header"> -->
+<!-- 						<button type="button" class="close" data-dismiss="modal" -->
+<!-- 							aria-label="Close"> -->
+<!-- 							<span aria-hidden="true">×</span> -->
+<!-- 						</button> -->
+<!-- 						<h4 class="modal-title" id="add-modal-label">Add New Team</h4> -->
+<!-- 					</div> -->
+<!-- 					<div class="modal-body"> -->
+<!-- 						<div class="form-group"> -->
+<!-- 							<label for="addTeamName" class="col-sm-2 control-label">Name</label> -->
+<!-- 							<div class="col-sm-10"> -->
+<!-- 								<input type="text" class="form-control" id="addTeamName" -->
+<!-- 									name="name" placeholder="name" required=""> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+<!-- 						<div class="form-group"> -->
+<!-- 							<label for="addTeamCity" class="col-sm-2 control-label">City</label> -->
+<!-- 							<div class="col-sm-10"> -->
+<!-- 								<input type="text" class="form-control" id="addTeamCity" -->
+<!-- 									name="city" placeholder="City" required=""> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
+<!-- 					<div class="modal-footer"> -->
+<!-- 						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+<!-- 						<button type="submit" id="addTeamSubmit" class="btn btn-primary">Save</button> -->
+<!-- 					</div> -->
+<!-- 				</form> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+<!-- 	</div> -->
+
 	<div class="footer"></div>
 
 	
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.js"></script>
     <script src="<c:url value='/js/app.js'/>"></script>  
       <script src="<c:url value='/js/service/team_service.js' />"></script>
       <script src="<c:url value='/js/controller/team_controller.js' />"></script>
