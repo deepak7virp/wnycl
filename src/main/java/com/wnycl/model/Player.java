@@ -36,6 +36,18 @@ public class Player {
 	@Column(name="dob", columnDefinition="DATE", nullable=false)
 	private Date dob;
 	
+	@NotEmpty
+	@Column(name="teamid", nullable=false)
+	private Integer teamid;
+	
+	public Integer getTeamid() {
+		return teamid;
+	}
+
+	public void setTeamid(Integer teamid) {
+		this.teamid = teamid;
+	}
+
 	public Integer getPlayerid() {
 		return playerid;
 	}

@@ -10,7 +10,7 @@ angular.module('myApp').factory('TeamService', ['$http', '$q', function($http, $
         updateTeam:updateTeam,
         deleteTeam:deleteTeam
     };
-
+    //REST_SERVICE_URI = '';
     return factory;
 
     function fetchAllTeams() {
@@ -30,7 +30,7 @@ angular.module('myApp').factory('TeamService', ['$http', '$q', function($http, $
 
     function createTeam(team) {
         var deferred = $q.defer();
-        $http.post(REST_SERVICE_URI, team)
+        $http.post($q.REST_SERVICE_URI, team)
             .then(
             function (response) {
                 deferred.resolve(response.data);

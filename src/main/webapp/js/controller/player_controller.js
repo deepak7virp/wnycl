@@ -1,56 +1,53 @@
 'use strict';
 
-angular.module('myApp').controller('PlayerController', ['$scope', 'PlayerService', 'TeamService', '$routeParams', function($scope, PlayerService, TeamService, $routeParams) {
-    
-	var teamID = $routeParams.teamID;//$route.current.$$route.teamid;
-	var self = this;
-    self.player={
-    		playerid:null,
-    		firstname:'',
-    		lastname:'',
-    		dob:'',
-    		email:'',
-    		phone:'',
-    		active:'',
-    		team: {
-    			teamid : '',
-    			name : '',
-    			city : '',
-    		}
+angular.module('myApp').controller('PlayerController', ['$scope', '$routeParams','PlayerService', function($scope, $routeParams,PlayerService) {
+    var self = this;
+    self.player={    		
+    			playerid : '',
+    			firstname : '',
+    			lastname : '',
+    			dob : '',
+    			teamid:'',
+    			email : '',
+    			phone : '',
+    			active : ''    		
     };
+    
     self.players=[];
+
     self.submit = submit;
     self.edit = edit;
     self.remove = remove;
     self.reset = reset;
-    fetchAllPlayers(teamID);
-    function fetchAllPlayers(teamid){
-    	PlayerService.fetchAllPlayers(teamID)
-	        .then(
-	        function(d) {
-	            self.players = d;
-	            console.log(d);
-	        },
-	        function(errResponse){
-	            console.error('Error while fetching Teams');
-	        }
-	    )
+
+    findPlayersByTeam($routeParams.teamid);
+
+    function findPlayersByTeam(teamid){
+        PlayerService.findPlayersByTeam(teamid)
+            .then(
+            function(d) {
+                self.players = d;
+            },
+            function(errResponse){
+                console.error('Error while fetching players');
+            }
+        );
     }
 
-    function createPlayer(player){
-        PlayerService.createPlayer(player)
+    function createPlayers(team){
+        TeamService.createTeams(team)
             .then(
-            fetchAllPlayers,
+            fetchAllTeams,
             function(errResponse){
                 console.error('Error while creating Team');
             }
         );
     }
 
-    function updatePlayer(player, id){
-        PlayerService.updatePlayer(player, id)
+    function updatePlayer(team, id){
+        PlayerService.updatePlayer(team, id)
             .then(
-            fetchAllPlayers,
+            fetchAllTeams,
             function(errResponse){
                 console.error('Error while updating Team');
             }
@@ -68,21 +65,21 @@ angular.module('myApp').controller('PlayerController', ['$scope', 'PlayerService
     }
 
     function submit() {
-        if(self.player.playerid===null){
-            console.log('Saving New Team', self.player);
-            createUser(self.player);
+        if(self.team.teamid===null){
+            console.log('Saving New Team', self.team);
+            createUser(self.team);
         }else{
-            updateUser(self.player, self.player.playerid);
-            console.log('Team updated with id ', self.player.playerid);
+            updateUser(self.team, self.team.teamid);
+            console.log('Team updated with id ', self.team.teamid);
         }
         reset();
     }
 
     function edit(id){
         console.log('id to be edited', id);
-        for(var i = 0; i < self.players.length; i++){
-            if(self.players[i].playerid === id) {
-                self.player = angular.copy(self.players[i]);
+        for(var i = 0; i < self.teams.length; i++){
+            if(self.teams[i].teamid === id) {
+                self.team = angular.copy(self.teams[i]);
                 break;
             }
         }
@@ -90,15 +87,14 @@ angular.module('myApp').controller('PlayerController', ['$scope', 'PlayerService
 
     function remove(id){
         console.log('id to be deleted', id);
-        if(self.player.playerid === id) {//clean form if the user to be deleted is shown there.
+        if(self.team.teamid === id) {//clean form if the user to be deleted is shown there.
             reset();
         }
-        deletePlayer(id);
+        deleteTeam(id);
     }
 
-
     function reset(){
-        self.player={playerid:null,name:'',city:'',captain:''};
+        self.team={teamid:null,name:'',city:'',captain:''};
         $scope.myForm.$setPristine(); //reset Form
     }
 

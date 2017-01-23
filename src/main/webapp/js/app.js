@@ -10,7 +10,17 @@ App.config(function($routeProvider) {
             templateUrl : '/wnycl/TeamsList',
             controller  : 'TeamController'
         })
+        
+        .when('/teamInfo/:teamid', {
+        	templateUrl:'/wnycl/playersList',
+        	controller : 'PlayerController',
+        	teamid: ':teamid'
+        })
 
+        .when('/team/AddTeam', {        
+            templateUrl : '/wnycl/addTeam',
+            controller  : 'TeamController'            
+        })
         // route for the about page
         .when('/about', {
             templateUrl : 'pages/about.html',

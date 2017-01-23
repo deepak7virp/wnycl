@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.wnycl.model.Player;
 import com.wnycl.model.Team;
+import com.wnycl.service.PlayerService;
 import com.wnycl.service.TeamService;
 
 @RestController
@@ -22,6 +23,8 @@ public class AppRestController {
 	@Autowired
     TeamService teamService;  //Service which will do all data retrieval/manipulation work
   
+	@Autowired
+    PlayerService playerService;  //Service which will do all data retrieval/manipulation work
      
     //-------------------Retrieve All Teams--------------------------------------------------------
       
@@ -34,26 +37,35 @@ public class AppRestController {
         return new ResponseEntity<List<Team>>(teams, HttpStatus.OK);
     }
   
-  
+  //-------------------Retrieve All Players in a Team--------------------------------------------------------
+    
+    @RequestMapping(value = "/player/{teamid}", method = RequestMethod.GET)
+    public ResponseEntity<List<Player>> listAllPlayers(@PathVariable("teamid") Integer teamid) {   
+        List<Player> players = playerService.findPlayersByTeam(teamid);
+        if(players.isEmpty()){
+            return new ResponseEntity<List<Player>>(HttpStatus.NO_CONTENT);//You many decide to return HttpStatus.NOT_FOUND
+        }        
+        return new ResponseEntity<List<Player>>(players, HttpStatus.OK);
+    }
      
     //-------------------Retrieve Single Team--------------------------------------------------------
       
-    @RequestMapping(value = "/Team/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Team> getTeam(@PathVariable("id") long id) {
+    /*@RequestMapping(value = "/player/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Player> getTeam(@PathVariable("id") long id) {
         System.out.println("Fetching Team with id " + id);
-        Team team = teamService.findById((int)id);
-        if (team == null) {
+        List<Player> players = playerService.findAllPlayers();
+        if (players == null) {
             System.out.println("Team with id " + id + " not found");
-            return new ResponseEntity<Team>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<Player>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<Team>(team, HttpStatus.OK);
+        return new ResponseEntity<List<Player>>(players, HttpStatus.OK);
     }
-  
+  */
       
       
     //-------------------Create a Team--------------------------------------------------------
       
-    @RequestMapping(value = "/Team/", method = RequestMethod.POST)
+    @RequestMapping(value = "/team/AddTeam", method = RequestMethod.POST)
     public ResponseEntity<Void> createTeam(@RequestBody Team team,    UriComponentsBuilder ucBuilder) {
         System.out.println("Creating Team " + team.getName());
   
@@ -107,18 +119,6 @@ public class AppRestController {
 //        }
   
         //TeamService.deleteTeamById(id);
-        return new ResponseEntity<Team>(HttpStatus.NO_CONTENT);
-    }
-  
-      
-     
-    //------------------- Delete All Teams --------------------------------------------------------
-      
-    @RequestMapping(value = "/team/", method = RequestMethod.DELETE)
-    public ResponseEntity<Team> deleteAllTeams() {
-        System.out.println("Deleting All Teams");
-  
-        //teamService.deleteAllTeams();
         return new ResponseEntity<Team>(HttpStatus.NO_CONTENT);
     }
   

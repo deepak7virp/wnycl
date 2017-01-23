@@ -1,21 +1,20 @@
 'use strict';
 
-angular.module('myApp').factory('PlayerService', ['$http', '$q', function($http, $q){
+angular.module('myApp').service('PlayerService', ['$http', '$q','$routeParams', function($http, $q,$routeParams){
 
-	var REST_SERVICE_URI = '/wnycl/players/';
-
+	var REST_SERVICE_URI = '/wnycl/player/';
+	//var teamid = $routeParams.teamid;
     var factory = {
-        fetchAllPlayers: fetchAllPlayers,
+    	findPlayersByTeam: findPlayersByTeam,
         createPlayer: createPlayer,
-        updatePlayer:updatePlayer,
-        deletePlayer:deletePlayer
+      //  updatePlayer:updatePlayer,
+       // deletePlayer:deletePlayer
     };
-
     return factory;
-
-    function fetchAllPlayers(team) {
+	
+    function findPlayersByTeam(teamId) {	    	
         var deferred = $q.defer();
-        $http.post(REST_SERVICE_URI, team)
+        $http.get(REST_SERVICE_URI+$routeParams.teamid)
             .then(
             function (response) {
                 deferred.resolve(response.data);
@@ -28,46 +27,15 @@ angular.module('myApp').factory('PlayerService', ['$http', '$q', function($http,
         return deferred.promise;
     }
 
-    function createPlayer(player) {
+    function createPlayer(team) {
         var deferred = $q.defer();
-        $http.post(REST_SERVICE_URI, player)
+        $http.post(REST_SERVICE_URI, team)
             .then(
             function (response) {
                 deferred.resolve(response.data);
             },
             function(errResponse){
-                console.error('Error while creating Team');
-                deferred.reject(errResponse);
-            }
-        );
-        return deferred.promise;
-    }
-
-
-    function updatePlayer(player, id) {
-        var deferred = $q.defer();
-        $http.put(REST_SERVICE_URI+id, player)
-            .then(
-            function (response) {
-                deferred.resolve(response.data);
-            },
-            function(errResponse){
-                console.error('Error while updating Team');
-                deferred.reject(errResponse);
-            }
-        );
-        return deferred.promise;
-    }
-
-    function deletePlayer(id) {
-        var deferred = $q.defer();
-        $http.delete(REST_SERVICE_URI+id)
-            .then(
-            function (response) {
-                deferred.resolve(response.data);
-            },
-            function(errResponse){
-                console.error('Error while deleting Team');
+                console.error('Error while creating Player');
                 deferred.reject(errResponse);
             }
         );
