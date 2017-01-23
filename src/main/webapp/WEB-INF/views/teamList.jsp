@@ -9,9 +9,8 @@
 				<th>Captain</th>
 			</thead>
 			<tbody>
-				<tr class="teamdisplayRow" ng-repeat="team in teamCtrl.teams"
-					id="{{team.name}}-{{team.teamid}}">
-					<td>{{team.name}}</td>
+				<tr class="teamdisplayRow" class="nounderline" ng-repeat="team in teamCtrl.teams" id="{{team.name}}-{{team.teamid}}">
+					<td><a ng-href="#/teamInfo/{{team.teamid}}" class="nounderline" >{{team.name}}</a></td>
 					<td>{{team.city}}</td>
 					<td>{{team.captain.firstname}}</td>
 				</tr>
@@ -20,7 +19,7 @@
 		<div class="clearfix"></div>
 		<button type="button" class="btn btn-primary btn-sm pull-right"
 			data-toggle="modal" data-target="#addTeammodal">
-			<b>Add Team</b>
+			<b ng-href="#/team/AddTeam">Add Team</b>	
 		</button>
 	</div>
 </div>

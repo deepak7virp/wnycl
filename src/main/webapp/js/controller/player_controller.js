@@ -1,45 +1,40 @@
 'use strict';
 
-angular.module('myApp').controller('TeamController', ['$scope', 'TeamService', function($scope, TeamService) {
+angular.module('myApp').controller('PlayerController', ['$scope', '$routeParams','PlayerService', function($scope, $routeParams,PlayerService) {
     var self = this;
-    self.team={
-    		teamid:null,
-    		name:'',
-    		city:'',
-    		captain: {
+    self.player={    		
     			playerid : '',
     			firstname : '',
     			lastname : '',
     			dob : '',
+    			teamid:'',
     			email : '',
     			phone : '',
-    			active : ''
-    		}
+    			active : ''    		
     };
     
-    self.teams=[];
+    self.players=[];
 
     self.submit = submit;
     self.edit = edit;
     self.remove = remove;
     self.reset = reset;
 
+    findPlayersByTeam($routeParams.teamid);
 
-    fetchAllTeams();
-
-    function fetchAllTeams(){
-        TeamService.fetchAllTeams()
+    function findPlayersByTeam(teamid){
+        PlayerService.findPlayersByTeam(teamid)
             .then(
             function(d) {
-                self.teams = d;
+                self.players = d;
             },
             function(errResponse){
-                console.error('Error while fetching Teams');
+                console.error('Error while fetching players');
             }
         );
     }
 
-    function createTeams(team){
+    function createPlayers(team){
         TeamService.createTeams(team)
             .then(
             fetchAllTeams,
@@ -49,8 +44,8 @@ angular.module('myApp').controller('TeamController', ['$scope', 'TeamService', f
         );
     }
 
-    function updateTeam(team, id){
-        TeamService.updateTeam(team, id)
+    function updatePlayer(team, id){
+        PlayerService.updatePlayer(team, id)
             .then(
             fetchAllTeams,
             function(errResponse){
@@ -59,10 +54,10 @@ angular.module('myApp').controller('TeamController', ['$scope', 'TeamService', f
         );
     }
 
-    function deleteTeam(id){
-        TeamService.deleteTeam(id)
+    function deletePlayer(id){
+        PlayerService.deletePlayer(id)
             .then(
-            fetchAllTeams,
+            fetchAllPlayers,
             function(errResponse){
                 console.error('Error while deleting User');
             }
@@ -97,7 +92,6 @@ angular.module('myApp').controller('TeamController', ['$scope', 'TeamService', f
         }
         deleteTeam(id);
     }
-
 
     function reset(){
         self.team={teamid:null,name:'',city:'',captain:''};

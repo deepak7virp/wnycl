@@ -55,6 +55,7 @@ public class PlayerDaoImpl extends AbstractDao<Integer, Player> implements Playe
 	@Override
 	public List<Player> findPlayersByTeam(int id) {
 		// TODO Auto-generated method stub
+		System.out.println("PLayer Dao team id = "+ id);
 		Criteria crit = createEntityCriteria();
 		crit.add(Restrictions.eq("teamid", id));
 		List<Player> players = (List<Player>)crit.list();
