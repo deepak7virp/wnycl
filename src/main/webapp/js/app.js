@@ -1,22 +1,37 @@
 'use strict';
-
-var App = angular.module('myApp', ['ngRoute', 'ui.bootstrap']);
+ 
+var App = angular.module('myApp',['ngRoute']);
 
 App.config(function($routeProvider) {
-	$routeProvider
-	.when('/listTeams', {
-		templateUrl : 'TeamList',
-		controller : 'TeamController'
-	})
-	.when('/home', {
-		templateUrl : 'home',
-		controller : 'BlogController'
-	})
-	.when('/about', {
-		templateUrl : 'about',
-		controller : 'AboutController'
-	})
-	.otherwise({
-		redirectTo : '/'
-	});
+    $routeProvider
+
+        // route for the home page
+        .when('/listTeams', {
+            templateUrl : '/wnycl/TeamsList',
+            controller  : 'TeamController'
+        })
+        
+        .when('/teamInfo/:teamid', {
+        	templateUrl:'/wnycl/playersList',
+        	controller : 'PlayerController',
+        	teamid: ':teamid'
+        })
+
+        .when('/team/AddTeam', {        
+            templateUrl : '/wnycl/addTeam',
+            controller  : 'TeamController'            
+        })
+        // route for the about page
+        .when('/about', {
+            templateUrl : 'pages/about.html',
+            controller  : 'aboutController'
+        })
+
+        // route for the contact page
+        .when('/contact', {
+            templateUrl : 'pages/contact.html',
+            controller  : 'contactController'
+        });
 });
+
+

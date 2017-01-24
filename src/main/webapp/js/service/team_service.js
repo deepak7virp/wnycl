@@ -11,7 +11,7 @@ angular.module('myApp').factory('TeamService', ['$http', '$q', function($http, $
         updateTeam:updateTeam,
         deleteTeam:deleteTeam
     };
-
+    //REST_SERVICE_URI = '';
     return factory;
 
     function fetchAllTeams() {
