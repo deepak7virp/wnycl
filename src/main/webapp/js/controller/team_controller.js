@@ -1,8 +1,7 @@
 'use strict';
 
 angular.module('myApp').controller('TeamController', ['$scope', 'TeamService', function($scope, TeamService) {
-    var self = this;
-    self.team={
+    $scope.team={
     		teamid:'',
     		name:'',
     		city:'',
@@ -16,33 +15,38 @@ angular.module('myApp').controller('TeamController', ['$scope', 'TeamService', f
     			active : ''
     		}
     };
+    $scope.teams=[];
+    $scope.submit = submit;
+    $scope.edit = edit;
+    $scope.remove = remove;
+    $scope.reset = reset;
     
-    self.teams=[];
-
-    self.submit = submit;
-    self.edit = edit;
-    self.remove = remove;
-    self.reset = reset;
-
-
-    fetchAllTeams();
-   
-    function fetchAllTeams(){
+    $scope.addTeamClicked = false;
+    $scope.addClick = function(){
+    	$scope.addTeamClicked = true;
+    }
+    
+    
+    $scope.fetchAllTeams = function(){
         TeamService.fetchAllTeams()
             .then(
             function(d) {
-                self.teams = d;
+                $scope.teams = d;
             },
             function(errResponse){
                 console.error('Error while fetching Teams');
             }
         );
     }
+    
+    $scope.fetchAllTeams();
 
-    function createTeam(team){
+    $scope.createTeam = function(team){
         TeamService.createTeam(team)
             .then(
             function(d) {
+            	$scope.fetchAllTeams();
+            	$scope.addTeamClicked = false;
             	console.log("in Add tewam");
             },
             function(errResponse){

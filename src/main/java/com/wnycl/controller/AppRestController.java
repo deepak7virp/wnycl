@@ -36,8 +36,20 @@ public class AppRestController {
         }
         return new ResponseEntity<List<Team>>(teams, HttpStatus.OK);
     }
+    
+    
+    //-------------------Create a Team--------------------------------------------------------
+    
+    @RequestMapping(value = "/team/", method = RequestMethod.POST)
+    public ResponseEntity<Void> createTeam(@RequestBody Team team,    UriComponentsBuilder ucBuilder) {
+        System.out.println("Creating Team " + team.getName());
+        teamService.saveTeam(team);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(ucBuilder.path("/Team/{id}").buildAndExpand(team.getTeamid()).toUri());
+        return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+    }
   
-  //-------------------Retrieve All Players in a Team--------------------------------------------------------
+    //-------------------Retrieve All Players in a Team--------------------------------------------------------
     
     @RequestMapping(value = "/player/{teamid}", method = RequestMethod.GET)
     public ResponseEntity<List<Player>> listAllPlayers(@PathVariable("teamid") Integer teamid) {   
@@ -63,23 +75,7 @@ public class AppRestController {
   */
       
       
-    //-------------------Create a Team--------------------------------------------------------
-      
-    @RequestMapping(value = "/team/AddTeam", method = RequestMethod.POST)
-    public ResponseEntity<Void> createTeam(@RequestBody Team team,    UriComponentsBuilder ucBuilder) {
-        System.out.println("Creating Team " + team.getName());
-  
-//        if (teamService.isTeamExist(team)) {
-//            System.out.println("A Team with name " + Team.getTeamname() + " already exist");
-//            return new ResponseEntity<Void>(HttpStatus.CONFLICT);
-//        }
-  
-        teamService.saveTeam(team);
-  
-        HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(ucBuilder.path("/Team/{id}").buildAndExpand(team.getTeamid()).toUri());
-        return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
-    }
+    
   
      
       

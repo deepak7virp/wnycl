@@ -32,7 +32,7 @@
 				</a>
 					<ul class="dropdown-menu">
 					
-						<li ng-repeat="team in teamCtrl.teams"><a class="teamMenuItem" id="{{team.teamid}}" ng-href="#/teamInfo/{{team.teamid}}">{{team.name}}</a></li>
+						<li ng-repeat="team in teams"><a class="teamMenuItem" id="{{team.teamid}}" ng-href="#/teamInfo/{{team.teamid}}">{{team.name}}</a></li>
 						<li><a class="teamMenuItem" id="addModifyTeam" ng-href="#/listTeams">Add/Modify Team</a></li>
 					</ul></li>
 				<li role="presentation"><a href="#">Tournament</a></li>
