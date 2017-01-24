@@ -43,8 +43,6 @@ public class NavController {
 	
 	@RequestMapping(value = {"/","/home"}, method = RequestMethod.GET)
 	public String login(ModelMap model) {
-		model.addAttribute("displayTeams",true);
-		model.addAttribute("teams", teamService.findAllTeams());
 		return "home";
 	}
 	
@@ -53,6 +51,11 @@ public class NavController {
 		model.addAttribute("teams", teamService.findAllTeams());
 		model.addAttribute("displayTeams",true);
 		return "home";
+	}
+	
+	@RequestMapping(value = {"/TeamList"}, method = RequestMethod.GET)
+	public String showTeamList(ModelMap model) {
+		return "TeamList";
 	}
 	
 	

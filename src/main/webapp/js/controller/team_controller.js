@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('myApp').controller('TeamController', ['$scope', 'TeamService', function($scope, TeamService) {
+angular.module('myApp').controller('TeamController', ['$scope', 'TeamService', '$modal', function($scope, TeamService, $modal) {
     var self = this;
     self.team={
     		teamid:null,
@@ -23,10 +23,25 @@ angular.module('myApp').controller('TeamController', ['$scope', 'TeamService', f
     self.edit = edit;
     self.remove = remove;
     self.reset = reset;
-
+    
 
     fetchAllTeams();
 
+    $scope.openAddModal = function(){
+    	var modalInstance = $modal.open({
+	    									templateUrl: 'addTeamModal'
+	    									//controller : AddController
+	    										
+	    								});
+
+    	modalInstance.result.then(function (selectedItem) {
+    		console.log(selectedItem);
+    		//$scope.selected = selectedItem;
+    	}, function () {
+    		//$log.info('Modal dismissed at: ' + new Date());
+    	});
+    }
+    
     function fetchAllTeams(){
         TeamService.fetchAllTeams()
             .then(

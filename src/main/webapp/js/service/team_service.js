@@ -3,6 +3,7 @@
 angular.module('myApp').factory('TeamService', ['$http', '$q', function($http, $q){
 
 	var REST_SERVICE_URI = '/wnycl/team/';
+	var ALL_TEAMS_URI = '/wnycl/teams/';
 
     var factory = {
         fetchAllTeams: fetchAllTeams,
@@ -15,7 +16,7 @@ angular.module('myApp').factory('TeamService', ['$http', '$q', function($http, $
 
     function fetchAllTeams() {
         var deferred = $q.defer();
-        $http.get(REST_SERVICE_URI)
+        $http.get(ALL_TEAMS_URI)
             .then(
             function (response) {
                 deferred.resolve(response.data);
