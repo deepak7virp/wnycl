@@ -1,6 +1,5 @@
 package com.wnycl.model;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +10,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name="team")
@@ -32,6 +33,7 @@ public class Team {
 //	@JsonIgnoreProperties(value={"team"})
 	@OneToOne
     @JoinColumn(name="playerid")
+	@JsonIgnoreProperties(value={"team"})
 	private Player captain;
 
 	public Integer getTeamid() {
