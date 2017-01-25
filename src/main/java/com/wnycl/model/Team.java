@@ -1,19 +1,16 @@
 package com.wnycl.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name="team")
@@ -30,9 +27,11 @@ public class Team {
 	@Column(name="city", nullable=false)
 	private String city;
 	
+//	@OneToOne
+//	@PrimaryKeyJoinColumn
+//	@JsonIgnoreProperties(value={"team"})
 	@OneToOne
-	@PrimaryKeyJoinColumn
-	@JsonIgnoreProperties(value={"team"})
+    @JoinColumn(name="playerid")
 	private Player captain;
 
 	public Integer getTeamid() {

@@ -57,7 +57,7 @@ public class PlayerDaoImpl extends AbstractDao<Integer, Player> implements Playe
 		// TODO Auto-generated method stub
 		System.out.println("PLayer Dao team id = "+ id);
 		Criteria crit = createEntityCriteria();
-		crit.add(Restrictions.eq("teamid", id));
+		crit.add(Restrictions.eq("team.teamid", id));
 		List<Player> players = (List<Player>)crit.list();
 		return players;
 	}

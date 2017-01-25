@@ -2,20 +2,17 @@ package com.wnycl.model;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name="player")
@@ -37,31 +34,6 @@ public class Player {
 	private Date dob;
 	
 	@NotEmpty
-	@Column(name="teamid", nullable=false)
-	private Integer teamid;
-	
-	public Integer getTeamid() {
-		return teamid;
-	}
-
-	public void setTeamid(Integer teamid) {
-		this.teamid = teamid;
-	}
-
-	public Integer getPlayerid() {
-		return playerid;
-	}
-
-	public void setPlayerid(Integer playerid) {
-		this.playerid = playerid;
-	}
-
-	@OneToOne
-	@PrimaryKeyJoinColumn
-	@JsonIgnoreProperties(value={"captain"})
-	private Team team;
-	
-	@NotEmpty
 	@Column(name="email", nullable=false)
 	private String email;
 	
@@ -73,7 +45,21 @@ public class Player {
 	@Column(name="active", nullable=false)
 	private Integer active;
 
+//	@OneToOne
+//	@PrimaryKeyJoinColumn
+//	@JsonIgnoreProperties(value={"captain"})
+	@OneToOne
+    @JoinColumn(name="teamid")
+	private Team team;
 
+	public Integer getPlayerid() {
+		return playerid;
+	}
+
+	public void setPlayerid(Integer playerid) {
+		this.playerid = playerid;
+	}
+	
 	public Integer getActive() {
 		return active;
 	}
@@ -129,5 +115,17 @@ public class Player {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
+	
+//	@NotEmpty
+//	@Column(name="teamid", nullable=false)
+//	private Integer teamid;
+//	
+//	public Integer getTeamid() {
+//		return teamid;
+//	}
+//
+//	public void setTeamid(Integer teamid) {
+//		this.teamid = teamid;
+//	}
 	
 }

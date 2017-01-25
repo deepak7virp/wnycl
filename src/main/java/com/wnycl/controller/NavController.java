@@ -31,22 +31,12 @@ public class NavController {
 	
 	@RequestMapping(value = {"/","/home"}, method = RequestMethod.GET)
 	public String login(ModelMap model) {
-		model.addAttribute("displayTeams",true);
-		model.addAttribute("teams", teamService.findAllTeams());
 		return "home";
 	}
 	
-	@RequestMapping(value = {"/listTeams"}, method = RequestMethod.GET)
-	public String listTeams(ModelMap model) {
-		model.addAttribute("teams", teamService.findAllTeams());
-		model.addAttribute("displayTeams",true);
-		return "home";
-	}
-	
-	
-	@RequestMapping(value = {"/TeamsList"}, method = RequestMethod.GET)
+	@RequestMapping(value = {"/teamsList"}, method = RequestMethod.GET)
 	public String teamsList(ModelMap model) {
-		return "teamList";
+		return "teamsList";
 	}
 	
 	@RequestMapping(value = {"/playersList"}, method = RequestMethod.GET)

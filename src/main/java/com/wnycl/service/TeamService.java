@@ -2,10 +2,11 @@ package com.wnycl.service;
 
 import java.util.List;
 
+import com.wnycl.model.Player;
 import com.wnycl.model.Team;
 
 public interface TeamService {
-	Team findById(long id);
+	Team findById(int id);
 	
 	Team findByName(String name);
 	
@@ -13,11 +14,13 @@ public interface TeamService {
 	
 	void updateTeam(Team team);
 	
-	void deleteTeamById(long id);
+	void assignCaptain(int teamid, Player player);
+	
+	void deleteTeamById(int id);
 
 	List<Team> findAllTeams(); 
 	
-	boolean isTeamUnique(long id, String name);
+	boolean isTeamUnique(int id, String name);
 	
 	boolean isTeamExist(Team team);
 }

@@ -25,16 +25,16 @@
 		<div class="collapse navbar-collapse">
 			<ul class="nav nav-tabs navbar-left">
 				<li role="presentation" class="active"><a href="#/home">Home</a></li>
-				<li role="presentation" class="dropdown"><a
-					class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-					 Teams 
-					 <span class="caret"></span>
-				</a>
+				<li role="presentation" class="dropdown">
+					<a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+					 	Teams 
+					 	<span class="caret"></span>
+					</a>
 					<ul class="dropdown-menu">
-					
 						<li ng-repeat="team in teams"><a class="teamMenuItem" id="{{team.teamid}}" ng-href="#/teamInfo/{{team.teamid}}">{{team.name}}</a></li>
 						<li><a class="teamMenuItem" id="addModifyTeam" ng-href="#/listTeams">Add/Modify Team</a></li>
-					</ul></li>
+					</ul>
+				</li>
 				<li role="presentation"><a href="#">Tournament</a></li>
 				<li role="presentation"><a href="#">Gallery</a></li>
 				<li role="presentation"><a href="#">News</a></li>

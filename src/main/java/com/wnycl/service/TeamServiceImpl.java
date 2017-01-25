@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.wnycl.dao.TeamDao;
+import com.wnycl.model.Player;
 import com.wnycl.model.Team;
 
 @Service("teamService")
@@ -17,7 +18,7 @@ public class TeamServiceImpl implements TeamService{
 	private TeamDao dao;
 	
 	@Override
-	public Team findById(long id) {
+	public Team findById(int id) {
 		// TODO Auto-generated method stub
 		return dao.findById(id);
 	}
@@ -37,14 +38,23 @@ public class TeamServiceImpl implements TeamService{
 	@Override
 	public void updateTeam(Team team) {
 		// TODO Auto-generated method stub
-//		Team entity = dao.findById(team.getTeamid());
-//		entity.setName(team.getName());
-//		entity.setCity(team.getCity());
-		//entity.setCaptainid(team.getCaptainId());
+		Team entity = dao.findById(team.getTeamid());
+		entity.setName(team.getName());
+		entity.setCity(team.getCity());
+		entity.setCaptain(team.getCaptain());
+		dao.updateTeam(entity);
+	}
+	
+	@Override
+	public void assignCaptain(int teamid, Player player) {
+		// TODO Auto-generated method stub
+		Team entity = dao.findById(teamid);
+		entity.setCaptain(player);
+		dao.updateTeam(entity);
 	}
 
 	@Override
-	public void deleteTeamById(long id) {
+	public void deleteTeamById(int id) {
 		// TODO Auto-generated method stub
 		dao.deleteById(id);
 	}
@@ -56,7 +66,7 @@ public class TeamServiceImpl implements TeamService{
 	}
 
 	@Override
-	public boolean isTeamUnique(long id, String name) {
+	public boolean isTeamUnique(int id, String name) {
 		// TODO Auto-generated method stub
 		Team team = findById(id);
 		return ( team == null || ( (team.getName() == name)));
@@ -68,5 +78,7 @@ public class TeamServiceImpl implements TeamService{
 		Team entity = findById(team.getTeamid());
 		return entity!= null;
 	}
+
+	
 
 }

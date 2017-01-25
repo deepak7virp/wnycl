@@ -3,18 +3,17 @@
 angular.module('myApp').service('PlayerService', ['$http', '$q','$routeParams', function($http, $q,$routeParams){
 
 	var REST_SERVICE_URI = '/wnycl/player/';
-	//var teamid = $routeParams.teamid;
+	
     var factory = {
     	findPlayersByTeam: findPlayersByTeam,
         createPlayer: createPlayer,
-      //  updatePlayer:updatePlayer,
-       // deletePlayer:deletePlayer
     };
     return factory;
+	findPlayersByTeam($routeParams.teamid);
 	
-    function findPlayersByTeam(teamId) {	    	
+    function findPlayersByTeam(teamid) {	    	
         var deferred = $q.defer();
-        $http.get(REST_SERVICE_URI+$routeParams.teamid)
+        $http.get(REST_SERVICE_URI+teamid)
             .then(
             function (response) {
                 deferred.resolve(response.data);

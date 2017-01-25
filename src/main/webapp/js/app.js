@@ -7,7 +7,7 @@ App.config(function($routeProvider) {
 
         // route for the home page
         .when('/listTeams', {
-            templateUrl : '/wnycl/TeamsList',
+            templateUrl : '/wnycl/teamsList',
             controller  : 'TeamController'
         })
         
