@@ -10,28 +10,36 @@
 				<th>Action</th>
 			</thead>
 			<tbody>
-				<tr class="teamdisplayRow" class="nounderline" ng-repeat="team in teams" id="{{team.name}}-{{team.teamid}}">
-					<td><a ng-href="#/teamInfo/{{team.teamid}}" class="nounderline" >{{team.name}}</a></td>
-					<td>{{team.city}}</td>
+				<tr class="teamdisplayRow" class="nounderline" ng-repeat="t in teams" id="{{t.name}}-{{t.teamid}}">
 					<td>
-						<span ng-if="team.captain">{{team.captain.firstname}}</span>
-						<button ng-if="!team.captain && !rows[team.teamid].assignCaptainEnable" class="btn btn-default" type="button" ng-click="assignCaptain(team.teamid)" >Assign!</button>						
-						<div ng-if="rows[team.teamid].assignCaptainEnable" class="dropdown">
-							<a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-							 	Choose a player 
-							 	<span class="caret"></span>
-							</a>
-							<ul class="dropdown-menu">
-								<li ng-repeat="player in players">
+						<input ng-if="!rows[t.teamid].glyphs.edit" type="text" class="form-control" data-ng-model="team.name" placeholder="Name">
+						<a ng-if="rows[t.teamid].glyphs.edit" ng-href="#/teamInfo/{{t.teamid}}" class="nounderline" >{{t.name}}</a>
+					</td>
+					<td>
+						<input ng-if="!rows[t.teamid].glyphs.edit" type="text" class="form-control" data-ng-model="team.city" placeholder="City">
+						<span ng-if="rows[t.teamid].glyphs.edit">
+							{{t.city}}
+						</span>
+					</td>
+					<td>
+						<span ng-if="t.captain">{{t.captain.firstname}}</span>
+						<span ng-if="!t.captain && rows[t.teamid].glyphs.edit">N/A</span>
+						<div ng-if="!rows[t.teamid].glyphs.edit" class="dropdown">
+							  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+							    Players
+							    <span class="caret"></span>
+							  </button>
+							  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+							    <li ng-repeat="player in players">
 									<a class="teamMenuItem" id="{{player.playerid}}" ng-click="assignPlayerAsCaptain(team.teamid,player.playerid)">{{player.firstname}} {{player.lastname}}</a>
 								</li>
-							</ul>
+							  </ul>
 						</div>
 					</td>
 					<td>
-						<span ng-if="rows[team.teamid].glyphs.edit" class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-						<span ng-if="rows[team.teamid].glyphs.submit" class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-						<span ng-if="rows[team.teamid].glyphs.cancel" class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+						<span ng-if="rows[t.teamid].glyphs.edit" class="glyphicon glyphicon-pencil" ng-click="edit(t)" aria-hidden="true"></span>
+						<span ng-if="rows[t.teamid].glyphs.submit" class="glyphicon glyphicon-ok" ng-click="submit()" aria-hidden="true"></span>
+						<span ng-if="rows[t.teamid].glyphs.cancel" class="glyphicon glyphicon-remove" ng-click="cancel()" aria-hidden="true"></span>
 					</td>
 				</tr>
 				<tr class="teamAddRow" ng-show="addTeamClicked">

@@ -25,7 +25,7 @@ public class Tournament {
 	private String name;
 	
 	@ManyToOne
-    @JoinColumn(name = "venueid_fk")
+    @JoinColumn(name = "venueid")
 	private Venue venue;
 	
 	@NotEmpty

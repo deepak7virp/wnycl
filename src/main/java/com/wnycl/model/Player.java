@@ -46,9 +46,6 @@ public class Player {
 	@Column(name="active", nullable=false)
 	private Integer active;
 
-//	@OneToOne
-//	@PrimaryKeyJoinColumn
-//	@JsonIgnoreProperties(value={"captain"})
 	@OneToOne
     @JoinColumn(name="teamid")
 	@JsonIgnoreProperties(value={"captain"})

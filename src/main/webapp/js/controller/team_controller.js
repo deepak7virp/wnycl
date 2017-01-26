@@ -20,8 +20,7 @@ angular.module('myApp').controller('TeamController', ['$scope', 'TeamService','P
     			edit : true,
         		submit : false,
         		cancel : false
-    		},
-    		assignCaptainEnable : false
+    		}
     
     }
     $scope.teams=[];
@@ -29,6 +28,21 @@ angular.module('myApp').controller('TeamController', ['$scope', 'TeamService','P
     $scope.addTeamClicked = false;
     $scope.rows = {};
     
+    $scope.edit = function(team){
+    	PlayerService.findPlayersByTeam(team.teamid)
+	        .then(
+	        function(d) {
+	            $scope.players = d;
+	        },
+	        function(errResponse){
+	            console.error('Error while fetching players');
+	        }
+	    );
+    	$scope.team = JSON.parse(JSON.stringify(team));
+    	$scope.rows[team.teamid].glyphs.edit = false;
+        $scope.rows[team.teamid].glyphs.submit = true;
+        $scope.rows[team.teamid].glyphs.cancel = true;
+    }
     $scope.assignCaptain = function(teamid){
     	 PlayerService.findPlayersByTeam(teamid)
 	         .then(
@@ -63,6 +77,9 @@ angular.module('myApp').controller('TeamController', ['$scope', 'TeamService','P
     
     $scope.addClick = function(){
     	$scope.addTeamClicked = true;
+    	$scope.rows[teamid].glyphs.edit = true;
+        $scope.rows[teamid].glyphs.submit = false;
+        $scope.rows[teamid].glyphs.cancel = false;
     }
     
     $scope.fetchAllTeams = function(){
@@ -127,15 +144,15 @@ angular.module('myApp').controller('TeamController', ['$scope', 'TeamService','P
         reset();
     }
 
-    $scope.edit = function(id){
-        console.log('id to be edited', id);
-        for(var i = 0; i < $scope.teams.length; i++){
-            if($scope.teams[i].teamid === id) {
-                $scope.team = angular.copy($scope.teams[i]);
-                break;
-            }
-        }
-    }
+//    $scope.edit = function(id){
+//        console.log('id to be edited', id);
+//        for(var i = 0; i < $scope.teams.length; i++){
+//            if($scope.teams[i].teamid === id) {
+//                $scope.team = angular.copy($scope.teams[i]);
+//                break;
+//            }
+//        }
+//    }
 
     $scope.remove = function(id){
         console.log('id to be deleted', id);
