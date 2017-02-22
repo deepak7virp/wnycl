@@ -35,6 +35,19 @@ public class TourController {
 		return new ResponseEntity<List<Tournament>>(tours, HttpStatus.OK);
 	}
 	
+	// -------------------Retrieve Single Tour--------------------------------------------------------
+
+	@RequestMapping(value = "/tour/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Tournament> getTour(@PathVariable("id") Integer id) {
+		System.out.println("Fetching Tour with id " + id);
+		Tournament tour = tourService.findById(id);
+		if (tour == null) {
+			System.out.println("Tour with id " + id + " not found");
+			return new ResponseEntity<Tournament>(HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<Tournament>(tour, HttpStatus.OK);
+	}
+	
 	// -------------------Retrieve Current Tours--------------------------------------------------------
 	@RequestMapping(value = "/liveTours/{date}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Tournament>> getLiveTours(@PathVariable("id") Date date) {
@@ -87,5 +100,29 @@ public class TourController {
 		currentTour.setName(team.getName());
 		tourService.updateTour(currentTour);
 		return new ResponseEntity<Tournament>(currentTour, HttpStatus.OK);
+	}
+	
+	// ------------------- Delete a Tour--------------------------------------------------------
+	@RequestMapping(value = "/deleteTour/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<Tournament> deleteTeam(@PathVariable("id") Integer id) {
+		System.out.println("Fetching & Deleting Tour with id " + id);
+
+		Tournament tour = tourService.findById(id);
+		if (tour == null) {
+			System.out.println("Unable to delete. Tour with id " + id + " not found");
+			return new ResponseEntity<Tournament>(HttpStatus.NOT_FOUND);
+		}
+
+		tourService.deleteById(id);
+		return new ResponseEntity<Tournament>(HttpStatus.NO_CONTENT);
+	}
+
+	// ------------------- Delete All Tours--------------------------------------------------------
+	@RequestMapping(value = "/deleteAllTours/", method = RequestMethod.DELETE)
+	public ResponseEntity<Tournament> deleteAllTours() {
+		System.out.println("Deleting All Tours");
+		
+		// teamService.deleteAllTeams();
+		return new ResponseEntity<Tournament>(HttpStatus.NO_CONTENT);
 	}
 }

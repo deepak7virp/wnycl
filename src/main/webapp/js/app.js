@@ -21,6 +21,23 @@ App.config(function($routeProvider) {
             templateUrl : '/wnycl/addTeam',
             controller  : 'TeamController'            
         })
+        
+        .when('/listTours', {
+            templateUrl : '/wnycl/toursList',
+            controller  : 'TourController'
+        })
+        
+        .when('/tourInfo/:tourid', {
+        	templateUrl:'/wnycl/tourInfo',
+        	controller : 'TourController',
+        	teamid: ':tourid'
+        })
+
+        .when('/team/AddTour', {        
+            templateUrl : '/wnycl/addTour',
+            controller  : 'TourController'            
+        })
+        
         // route for the about page
         .when('/about', {
             templateUrl : 'pages/about.html',

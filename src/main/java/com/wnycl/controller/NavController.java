@@ -48,4 +48,19 @@ public class NavController {
 	public String addTeam(ModelMap model) {
 		return "addTeam";
 	}
+	
+	@RequestMapping(value = {"/toursList"}, method = RequestMethod.GET)
+	public String toursList(ModelMap model) {
+		return "tourList";
+	}
+	
+	@RequestMapping(value = {"/tourInfo"}, method = RequestMethod.GET)
+	public String tourInfo(ModelMap model) {
+		return "tourInfo";
+	}
+	
+	@RequestMapping(value = {"/AddTour"}, method = RequestMethod.GET)
+	public String addTour(ModelMap model) {
+		return "addTour";
+	}
 }

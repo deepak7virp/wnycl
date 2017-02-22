@@ -21,11 +21,11 @@
 </head>
 <body ng-app="myApp">
 
-	<div class="container-fluid" ng-controller="TeamController as teamCtrl">
+	<div class="container-fluid">
 		<div class="collapse navbar-collapse">
 			<ul class="nav nav-tabs navbar-left">
 				<li role="presentation" class="active"><a href="#/home">Home</a></li>
-				<li role="presentation" class="dropdown">
+				<li role="presentation" class="dropdown" ng-controller="TeamController as teamCtrl">
 					<a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
 					 	Teams 
 					 	<span class="caret"></span>
@@ -35,7 +35,16 @@
 						<li><a class="teamMenuItem" id="addModifyTeam" ng-href="#/listTeams">Add/Modify Team</a></li>
 					</ul>
 				</li>
-				<li role="presentation"><a href="#">Tournament</a></li>
+				<li role="presentation" class="dropdown" ng-controller="TourController as tourCtrl">
+					<a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+					 	Tournaments 
+					 	<span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu">
+						<li ng-repeat="tour in tours"><a class="tourMenuItem" id="{{tour.tourid}}" ng-href="#/tourInfo/{{tour.tourid}}">{{tour.name}}</a></li>
+						<li><a class="tourMenuItem" id="addModifyTour" ng-href="#/listTours">Add/Modify Tour</a></li>
+					</ul>
+				</li>
 				<li role="presentation"><a href="#">Gallery</a></li>
 				<li role="presentation"><a href="#">News</a></li>
 				<li role="presentation"><a href="#">About Us</a></li>
@@ -60,6 +69,8 @@
     <script src="<c:url value='/js/app.js'/>"></script>  
     <script src="<c:url value='/js/service/team_service.js' />"></script>
     <script src="<c:url value='/js/controller/team_controller.js' />"></script>
+    <script src="<c:url value='/js/service/tour_service.js' />"></script>
+    <script src="<c:url value='/js/controller/tour_controller.js' />"></script>
     <script src="<c:url value='/js/service/player_service.js' />"></script>
     <script src="<c:url value='/js/controller/player_controller.js' />"></script>
 </body>
