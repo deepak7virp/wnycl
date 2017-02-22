@@ -60,7 +60,6 @@ public class TeamController {
 	}
 
 	// -------------------Create a Team--------------------------------------------------------
-
 	@RequestMapping(value = "/createTeam/", method = RequestMethod.POST)
 	public ResponseEntity<Void> createTeam(@RequestBody Team team, UriComponentsBuilder ucBuilder) {
 		System.out.println("Creating Team " + team.getName());
@@ -71,7 +70,6 @@ public class TeamController {
 	}
 
 	// ------------------- Update a Team--------------------------------------------------------
-
 	@RequestMapping(value = "/updateTeam/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Team> updateTeam(@PathVariable("id") Integer id, @RequestBody Team team) {
 		System.out.println("Updating Team " + id);
@@ -88,7 +86,6 @@ public class TeamController {
 	}
 
 	// ------------------- Delete a Team--------------------------------------------------------
-
 	@RequestMapping(value = "/deleteTeam/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Team> deleteTeam(@PathVariable("id") Integer id) {
 		System.out.println("Fetching & Deleting Team with id " + id);
@@ -104,7 +101,6 @@ public class TeamController {
 	}
 
 	// ------------------- Delete All Teams--------------------------------------------------------
-
 	@RequestMapping(value = "/deleteAllTeams/", method = RequestMethod.DELETE)
 	public ResponseEntity<Team> deleteAllTeams() {
 		System.out.println("Deleting All Teams");

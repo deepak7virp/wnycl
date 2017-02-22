@@ -38,6 +38,14 @@ public class Venue {
 		return name;
 	}
 
+	public Integer getVenueid() {
+		return venueid;
+	}
+
+	public void setVenueid(Integer venueid) {
+		this.venueid = venueid;
+	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
